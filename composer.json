@@ -1,0 +1,37 @@
+{
+  "name": "costalong/swoft-kafka",
+  "type": "library",
+  "keywords": [
+    "swoole",
+    "swoft",
+    "swoft-component"
+  ],
+  "description": "swoft-kafka component for swoft framework",
+  "license": "Apache-2.0",
+  "require": {
+    "php": ">7.1",
+    "swoft/framework": "~2.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Costalong\\Swoft\\Kafka\\": "src/"
+    },
+    "files": [
+      "src/Helper/Functions.php"
+    ]
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.5"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Costalong\\Swoft\\Kafka\\Test\\Unit\\": "test/unit/",
+      "Costalong\\Swoft\\Kafka\\Test\\Testing\\": "test/testing/",
+      "SwoftTest\\Unit\\": "vendor/swoft/framework/test/unit/",
+      "SwoftTest\\Testing\\": "vendor/swoft/framework/test/testing/"
+    }
+  },
+  "scripts": {
+    "test": "./vendor/bin/phpunit -c phpunit.xml"
+  }
+}

@@ -20,4 +20,12 @@ class PartitionHandle implements HandleInterface
         echo "No more messages; will wait for more\n";
         return $func(false);
     }
+
+    /**
+     * @return mixed|void
+     */
+    public function handleByCode(int $code,callable $func)
+    {
+        return $func($func);
+    }
 }

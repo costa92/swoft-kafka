@@ -29,11 +29,15 @@ class KafkaTopicTest extends TestCase
         $topics->setGroupId("groupId");
         /** @var HighConsumer $consumer */
         $consumer = $topics->consumer();
-
-        for ($i=0;$i < 10;$i++) {
+//        for ($i=0;$i < 10;$i++) {
             $result = $consumer->run();
-            var_dump($result->handle());
-        }
+
+            if ($result){
+                var_dump($result->handle());
+            }else{
+                echo 11;
+            }
+//        }
     }
 
 
@@ -47,6 +51,7 @@ class KafkaTopicTest extends TestCase
         $topics->setTopicName("topic_name");
         /** @var LowConsumer $consumer */
         $consumer = $topics->consumer();
+        var_dump($consumer);
         $consumer->setPartition(0);
         for ($i=0;$i < 10;$i++) {
             $result = $consumer->run();

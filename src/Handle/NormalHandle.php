@@ -26,4 +26,12 @@ class NormalHandle implements HandleInterface
     {
         return $func($message);
     }
+
+    /**
+     * @return mixed|void
+     */
+    public function handleByCode(int $code,callable $func)
+    {
+        return $func($func);
+    }
 }

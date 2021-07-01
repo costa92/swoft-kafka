@@ -69,6 +69,29 @@ class Container
             throw new KafkaException($err);
         }
     }
+
+    /**
+     * @param int $code
+     * @param callable $func
+     * @return mixed
+     * @throws KafkaException
+     */
+    public function  handleResultProducer(int $code,callable $func)
+    {
+        $handleClass = [
+            RD_KAFKA_RESP_ERR_NO_ERROR => NormalHandle::class,
+            RD_KAFKA_RESP_ERR__PARTITION_EOF => PartitionHandle::class,
+            RD_KAFKA_RESP_ERR__TIMED_OUT => TimeoutHandle::class
+        ];
+        // 处理数据
+        if (array_key_exists($code,$handleClass)){
+            /** @var HandleInterface $newHandleClass */
+            $newHandleClass = new $handleClass[$code];
+            return $newHandleClass->handleByCode($code,$func);
+        }else{
+            throw new KafkaException(rd_kafka_err2str($code),$code);
+        }
+    }
 }
 
 

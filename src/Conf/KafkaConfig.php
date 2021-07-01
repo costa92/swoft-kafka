@@ -52,25 +52,32 @@ class KafkaConfig
     public function getRdKafkaConf(): \RdKafka\Conf
     {
         $conf = new \RdKafka\Conf();
+
+
         $conf->setErrorCb(function($kafka, $err, $reason){
             /** @var RefusedExceptionHandle  $refusedHandle */
             $refusedHandle  =  BeanFactory::getBean(RefusedExceptionHandle::class);
             $refusedHandle->handle($kafka,$err,$reason);
         });
+
+
         $conf->setLogCb(function ($kafka, $level, $facility, $message) {
             /** @var LogExceptionHandle $logException */
             $logException = BeanFactory::getSingleton(LogExceptionHandle::class);
             $logException->handle($kafka,$level,$facility,$message);
         });
+
         $conf->setConsumeCb(function ($msg) {
             /** @var ConsumeExceptionHandle $ConsumeException */
             $ConsumeException = BeanFactory::getSingleton(ConsumeExceptionHandle::class);
             $ConsumeException->handle($msg);
         });
 
+
         $conf->set('metadata.broker.list', $this->getBrokers());
 
         return $conf;
+
     }
 
 

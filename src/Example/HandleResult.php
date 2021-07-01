@@ -18,9 +18,7 @@ use Swoft\Bean\Annotation\Mapping\Bean;
  */
 class HandleResult extends BaseDataResult implements HandleDataInterface
 {
-    /**
-     * @return void
-     */
+
     public function handle()
     {
        return $this->toArray();

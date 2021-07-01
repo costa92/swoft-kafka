@@ -19,4 +19,11 @@ interface HandleInterface
      * @return mixed
      */
     public function handle(\RdKafka\Message $message,callable $func);
+
+    /**
+     * @param int $code
+     * @param callable $func
+     * @return mixed
+     */
+    public function handleByCode(int $code,callable $func);
 }

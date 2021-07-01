@@ -8,6 +8,8 @@
 namespace Costalong\Swoft\Kafka\Producers;
 
 use Costalong\Swoft\Kafka\Common;
+use Costalong\Swoft\Kafka\Containers\Container;
+use Costalong\Swoft\Kafka\Exception\KafkaException;
 use Exception;
 use Swoft\Bean\Annotation\Mapping\Bean;
 use Swoft\Bean\BeanFactory;
@@ -147,8 +149,15 @@ class Producer extends Common
         $data = json_encode($this->getMessage());
         $this->pushMessage($this->getPartitions(),RD_KAFKA_MSG_F_BLOCK ,$data);
         $producer->poll(0);
+
+        /** @var Container $container */
+        $container = BeanFactory::getSingleton(Container::class);
         if ($producer->getOutQLen() > 0){
-            $producer->flush(50);
+            $result = $producer->flush(50);
+            $container->handleResultProducer($result,function () use($result){
+                $msg = rd_kafka_err2str($result);
+                throw new KafkaException($msg,$result);
+            });
         }
     }
 }

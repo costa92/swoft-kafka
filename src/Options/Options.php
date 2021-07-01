@@ -26,16 +26,21 @@ class Options
      */
     public function initOptions($topicConf,array $options = [])
     {
-        if ($options){
-            if ($topicConf instanceof \RdKafka\TopicConf){
-                $topicConf = $this->handleKafkaConf($topicConf,$options);
-            }elseif ($topicConf instanceof \RdKafka\Conf){
-                $topicConf = $this->handleKafkaConf($topicConf,$options);
-            }else{
-                throw new KafkaException("kafak config excption:".$topicConf);
+        try {
+            if ($options){
+                if ($topicConf instanceof \RdKafka\TopicConf){
+                    $topicConf = $this->handleKafkaConf($topicConf,$options);
+                }elseif ($topicConf instanceof \RdKafka\Conf){
+                    $topicConf = $this->handleKafkaConf($topicConf,$options);
+                }else{
+                    throw new KafkaException("kafak config excption:".$topicConf);
+                }
             }
+            return $topicConf;
+        }catch (\Exception $e){
+            var_dump(1111);
         }
-        return $topicConf;
+
     }
 
     /**
@@ -43,7 +48,7 @@ class Options
      * @param $options
      * @return mixed
      */
-    protected function handleKafkaConf( $conf, $options)
+    protected function handleKafkaConf($conf, $options)
     {
         foreach ($options as $key =>$value){
             $conf->set($key,$value);

@@ -21,19 +21,24 @@ return [
         "topics" => [
             [
                 "name" => "topic_name",
-                "brokers" => "127.0.0.1:9092",
+                "brokers" => "192.168.11.101:9092",
                 "consumer" => [
-                    "class" => \Costalong\Swoft\Kafka\Consumers\LowConsumer::class,
+                    "class" => \Costalong\Swoft\Kafka\Consumers\HighConsumer::class,
                     "options" => [
-                        "request.required.acks" => 1,
+//                        "request.required.acks" => 1,
                         "group.id" => "groupId",
-                        "auto.offset.reset" => "earliest",
+//                        "auto.offset.reset" => "earliest",
+//                        "metadata.request.timeout.ms" => 1000,
+//                        "enable.auto.commit" => true,
                     ],
                     "topicOptions" => [
                         "auto.commit.interval.ms" => 100,
-                        "offset.store.method" => "broker",
-                        "auto.offset.reset" => "earliest",
+//                        "auto.offset.reset" => "earliest",
+//                        "auto.offset.reset" => "largest",
+//                        "auto.offset.reset" => "largest",
+//                        "offset.store.method" => "broker",
                     ],
+                    "offset"=> RD_KAFKA_OFFSET_STORED,
                     "handleClass" => \Costalong\Swoft\Kafka\Example\HandleResult::class
                 ],
                 "producer" => [

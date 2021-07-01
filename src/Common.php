@@ -127,6 +127,9 @@ class Common implements CommonInterface
                 $this->setHandleClass($topic["handleClass"]);
             }
 
+            if (!empty($topic["offset"])){
+                $this->setOffset($topic["offset"]);
+            }
             $this->getConsumer($kafkaConfig);
             $this->getTopicConf($topicConfig);
 

@@ -48,6 +48,7 @@ class LowConsumer extends BaseConsumer implements ConsumerInterface
         /** @var ConsumerConf $consumerConf */
         $consumerConf = BeanFactory::getBean(ConsumerConf::class);
         $this->consume = $consumerConf->getLowConsumer($conf);
+
     }
 
 
@@ -58,7 +59,8 @@ class LowConsumer extends BaseConsumer implements ConsumerInterface
     {
         if ($this->consume  && $this->getTopicName()){
             $this->topic = $this->consume->newTopic($this->getTopicName(),$topicConf);
-            $this->topic->consumeStart($this->getPartition(), RD_KAFKA_OFFSET_BEGINNING);
+            $this->topic->consumeStart($this->getPartition(), $this->getOffset());
         }
+
     }
 }

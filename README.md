@@ -7,7 +7,7 @@ Swoft-kafka component for swoft framework
 - install by composer
 
 ```bash
-composer require root/swoft-kafka
+composer require costalong/swoft-kafka
 ```
 
 ## LICENSE

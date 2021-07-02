@@ -28,7 +28,12 @@ class Producer extends Common
     /**
      * @var int
      */
-    private $partitions = RD_KAFKA_PARTITION_UA;
+    protected $partitions = RD_KAFKA_PARTITION_UA;
+
+    /**
+     * @var null
+     */
+    protected $key = null;
 
 
     /**
@@ -57,6 +62,24 @@ class Producer extends Common
     {
         $this->topic = $topic;
     }
+
+    /**
+     * @return null
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    /**
+     * @param null $key
+     */
+    public function setKey($key): void
+    {
+        $this->key = $key;
+    }
+
+
 
 
 
@@ -147,7 +170,7 @@ class Producer extends Common
     {
         $producer = $this->producer;
         $data = json_encode($this->getMessage());
-        $this->pushMessage($this->getPartitions(),RD_KAFKA_MSG_F_BLOCK ,$data);
+        $this->pushMessage($this->getPartitions(),RD_KAFKA_MSG_F_BLOCK ,$data,$this->getKey());
         $producer->poll($poll);
 
         /** @var Container $container */

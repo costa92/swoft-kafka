@@ -80,9 +80,6 @@ class Producer extends Common
     }
 
 
-
-
-
     /**
      * @return array
      */

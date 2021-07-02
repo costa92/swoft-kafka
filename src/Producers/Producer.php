@@ -143,17 +143,17 @@ class Producer extends Common
      *  发送数据
      * @throws Exception
      */
-    public function send()
+    public function send($poll = 0, $flushTime = 50)
     {
         $producer = $this->producer;
         $data = json_encode($this->getMessage());
         $this->pushMessage($this->getPartitions(),RD_KAFKA_MSG_F_BLOCK ,$data);
-        $producer->poll(0);
+        $producer->poll($poll);
 
         /** @var Container $container */
         $container = BeanFactory::getSingleton(Container::class);
         if ($producer->getOutQLen() > 0){
-            $result = $producer->flush(50);
+            $result = $producer->flush($flushTime);
             $container->handleResultProducer($result,function () use($result){
                 $msg = rd_kafka_err2str($result);
                 throw new KafkaException($msg,$result);

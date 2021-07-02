@@ -8,6 +8,7 @@
 namespace Costalong\Swoft\Kafka\Exception\ExceptionHandle;
 
 use Swoft\Bean\Annotation\Mapping\Bean;
+use Swoft\Log\Helper\Log;
 
 /**
  * Class LogExceptionHandle
@@ -24,7 +25,6 @@ class LogExceptionHandle
      */
     public function handle($kafka,$level,$facility,$message)
     {
-        var_dump($message);
-        var_dump("log level:".$level);
+        Log::error("log level:".$level);
     }
 }

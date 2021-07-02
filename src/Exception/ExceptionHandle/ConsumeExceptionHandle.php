@@ -8,6 +8,7 @@
 namespace Costalong\Swoft\Kafka\Exception\ExceptionHandle;
 
 use Swoft\Bean\Annotation\Mapping\Bean;
+use Swoft\Log\Helper\Log;
 
 /**
  * Class ConsumeExceptionHandle
@@ -21,6 +22,6 @@ class ConsumeExceptionHandle
      */
     public function handle($msg)
     {
-        var_dump($msg);
+        Log::error($msg);
     }
 }

@@ -154,10 +154,12 @@ class Producer extends Common
         $container = BeanFactory::getSingleton(Container::class);
         if ($producer->getOutQLen() > 0){
             $result = $producer->flush($flushTime);
-            $container->handleResultProducer($result,function () use($result){
-                $msg = rd_kafka_err2str($result);
-                throw new KafkaException($msg,$result);
-            });
+            if ($result !== RD_KAFKA_RESP_ERR_NO_ERROR ){
+                $container->handleResultProducer($result,function () use($result){
+                    $msg = rd_kafka_err2str($result);
+                    throw new KafkaException($msg,$result);
+                });
+            }
         }
     }
 }

@@ -21,7 +21,7 @@ return [
         "topics" => [
             [
                 "name" => "topic_name",
-                "brokers" => "192.168.11.101:9092",
+//                "brokers" => "192.168.11.101:9092",
                 "consumer" => [
                     "class" => \Costalong\Swoft\Kafka\Consumers\HighConsumer::class,
                     "options" => [
